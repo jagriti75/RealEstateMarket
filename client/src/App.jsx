@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter , Routes , Route} from "react-router-dom";
 import styles from "./App.module.css";
+import { Navbar } from "./Navbar";
 import {Home} from "./pages/Home";
 import {SignIn} from "./pages/SignIn";
 import  {SignUp}  from "./pages/SignUp";
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Navbar/>
      <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/signin" element={<SignIn/>}/>

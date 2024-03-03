@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./SignOut.module.css";
+import styles from "./SignUp.module.css";
 
-export const SignOut = () => {
+export const SignUp = () => {
 
     return(
         <div>
