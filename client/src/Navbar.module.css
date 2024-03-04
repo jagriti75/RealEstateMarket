@@ -5,13 +5,21 @@
     background-color: burlywood;
     padding:10px;
 }
+.container div{
+    background-color: burlywood;
+}
+
+.container a , ul {
+    background-color: burlywood;
+}
 .search{
     background-color: white;
 }
 
 .search input{
     outline:none;
-    padding:2 px;
+    padding:10 px;
+    height:20px;
     width:400px;
 }
 .search img{

@@ -20,7 +20,7 @@ export const Navbar = () => {
                         <a href="/about">about</a>
                     </li>
                     <li>
-                        <a href="/signin">sign in</a>
+                        <a href="/signup">sign up</a>
                     </li>
                 </ul>
                 </div>
