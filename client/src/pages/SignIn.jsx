@@ -3,6 +3,7 @@ import styles from "./SignIn.module.css";
 import { useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpStart , signInFailure , signInSuccess } from "../redux/user/userSlice";
+import { Oauth } from "../Oauth";
 
 export const SignIn = () => {
 
@@ -24,7 +25,7 @@ export const SignIn = () => {
 
         e.preventDefault();
         try {
-            dispatch(signUpStart);
+            dispatch(signUpStart());
             const res = await fetch('/api/auth/signin', {
                 method: 'POST',
                 headers: {
@@ -54,6 +55,7 @@ export const SignIn = () => {
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
             <input type="text" placeholder="password" id="password" onChange={handleChange} />
             <button disabled={loading} type="submit">{loading ? "loading..." : "SIGN IN"}</button>
+            <Oauth/>
             <div><span>Dont have an account?</span><a href="/signup">sign up</a></div>
         </form>
         <div>{error}</div>

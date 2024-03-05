@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from './SignUp.module.css';
 import { useNavigate } from "react-router-dom";
+import {Oauth} from '../Oauth'
 
 export const SignUp = () => {
 
@@ -56,6 +57,7 @@ export const SignUp = () => {
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
             <input type="text" placeholder="password" id="password" onChange={handleChange} />
             <button disabled={loading} type="submit">{loading ? "loading..." : "SIGN UP"}</button>
+            <Oauth/>
             <div><span>Have an account?</span><a href="/signin">sign in</a></div>
         </form>
     </div>);
