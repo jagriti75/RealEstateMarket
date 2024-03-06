@@ -1,15 +1,18 @@
 import React from "react";
 import styles from './Navbar.module.css';
 import search from './assets/search.png';
+import { useSelector } from "react-redux";
+import  calendar from './assets/calendar.png'
 
 export const Navbar = () => {
+    const {currentUser} = useSelector((state) => state.user);
     return(
    
             <nav className={styles.container}>
-                <div>Holiday Planner</div>
+                <div className={styles.title}><span><img src={calendar}/></span>Holiday Planner</div>
                 <div className={styles.search}>
                         <input type="text" placeholder="Search ..."/>
-                        <button><img src={search} alt="?"/></button>
+                        <button type="button"><img src={search} alt="?"/></button>
                 </div>
                 <div>
                 <ul className={styles.menu}>
@@ -20,7 +23,7 @@ export const Navbar = () => {
                         <a href="/about">about</a>
                     </li>
                     <li>
-                        <a href="/signup">sign up</a>
+                        <a className={styles.circle} href={currentUser ? "/profile" : "/signin"}>{currentUser ? (<img className={styles.profile} src={currentUser.avatar}/>) : "sign in"}</a>
                     </li>
                 </ul>
                 </div>
