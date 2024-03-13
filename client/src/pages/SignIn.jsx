@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpStart , signInFailure , signInSuccess } from "../redux/user/userSlice";
 import { Oauth } from "../Oauth";
 
+
 export const SignIn = () => {
 
     const [formData, setFormData] = useState({});
     const {error , loading} = useSelector((state) => state.user); 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
 
     const handleChange = (e) => {
         setFormData(
@@ -51,13 +53,13 @@ export const SignIn = () => {
         <h1>
             SIGN IN
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.signinpage}>
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
             <input type="text" placeholder="password" id="password" onChange={handleChange} />
-            <button disabled={loading} type="submit">{loading ? "loading..." : "SIGN IN"}</button>
+            <button disabled={loading} type="submit" className={styles.sign}>{loading ? "loading..." : "SIGN IN"}</button>
             <Oauth/>
-            <div><span>Dont have an account?</span><a href="/signup">sign up</a></div>
+            <div className={styles.direct}><span >Do not have an account?</span><a href="/signup">sign up</a></div>
         </form>
-        <div>{error}</div>
+        <div className={styles.red}>{error}</div>
     </div>);
 }

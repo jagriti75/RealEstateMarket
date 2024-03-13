@@ -5,6 +5,7 @@ import { app } from "./firebase";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "./redux/user/userSlice";
 import { useNavigate } from 'react-router-dom';
+import googleLogo from '../src/assets/google.png'
 
 export const Oauth = () => {
     const dispatch = useDispatch();
@@ -37,6 +38,9 @@ export const Oauth = () => {
         }
     }
     return (
-        <button onClick={handleGoogleClick} type="button">Sign in with google</button>
+        <div className={styles.googlelogin}>
+         <p className={styles.grey}>continue with</p>
+        <button onClick={handleGoogleClick} type="button">{<img className={styles.logo} src={googleLogo}/>}</button>
+        </div>
     );
 }

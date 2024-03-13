@@ -48,17 +48,17 @@ export const SignUp = () => {
         }
 
     };
-    return (<div className={styles.container}>
+    return (<div className={styles.signuppage}>
         <h1>
             SIGN UP
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.signupform}>
             <input type="text" placeholder="username" id="username" onChange={handleChange} />
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
             <input type="text" placeholder="password" id="password" onChange={handleChange} />
-            <button disabled={loading} type="submit">{loading ? "loading..." : "SIGN UP"}</button>
+            <button className={styles.signup} disabled={loading} type="submit">{loading ? "loading..." : "SIGN UP"}</button>
             <Oauth/>
-            <div><span>Have an account?</span><a href="/signin">sign in</a></div>
+            <div className={styles.account}><span>Have an account?</span><a href="/signin">sign in</a></div>
         </form>
     </div>);
 }
