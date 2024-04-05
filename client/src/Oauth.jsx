@@ -40,7 +40,7 @@ export const Oauth = () => {
     return (
         <div className={styles.googlelogin}>
          <p className={styles.grey}>continue with</p>
-        <button onClick={handleGoogleClick} type="button">{<img className={styles.logo} src={googleLogo}/>}</button>
+        <button className={styles.googleButton} onClick={handleGoogleClick} type="button">{<img className={styles.logo} src={googleLogo}/>}</button>
         </div>
     );
 }
