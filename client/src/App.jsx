@@ -1,29 +1,40 @@
 import React from "react";
-import {BrowserRouter , Routes , Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styles from "./App.module.css";
 import { Navbar } from "./Navbar";
-import {Home} from "./pages/Home";
-import {SignIn} from "./pages/SignIn";
-import  {SignUp}  from "./pages/SignUp";
-import {Profile} from "./pages/Profile";
-import {About}  from "./pages/About";
+import { Home } from "./pages/Home";
+import { SignIn } from "./pages/SignIn";
+import { SignUp } from "./pages/SignUp";
+import { Profile } from "./pages/Profile";
+import {CreateListing} from "./pages/CreateListing";
+import {UpdateListing} from "./pages/UpdateListing";
+import { About } from "./pages/About";
 import { PrivateRoute } from "./PrivateRoute";
+import { Listing } from "./pages/Listing";
+import { RentalListing } from "./pages/RentalListing";
+import { SaleListing } from "./pages/SaleListing";
 
 function App() {
 
   return (
     <BrowserRouter >
-    <div className={styles.app}>
-    <Navbar/>
-     <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/signin" element={<SignIn/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
-      <Route element={<PrivateRoute/>}>
-      <Route path="/profile" element={<Profile/>}/>
-      </Route>
-      <Route path="/about" element={<About/>}/>
-      </Routes>
+      <div className={styles.app}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/listing/:listingId" element={<Listing/>} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create-listing" element={<CreateListing />} />
+            <Route path='/update/:listingId'
+            element={<UpdateListing />}/>
+          </Route>
+          <Route path="/rentals" element={<RentalListing/>}/>
+          <Route path="/sale" element={<SaleListing/>}/>
+        </Routes>
       </div>
     </BrowserRouter>
   )
