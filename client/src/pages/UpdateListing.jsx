@@ -243,6 +243,14 @@ export const UpdateListing = () => {
                         value={formData.bathrooms}
                     />
                     <span>Baths</span>
+                    <input type="number"
+                        id="plotArea"
+                        min='1'
+                        max='1000000'
+                        onChange={handleChange}
+                        value={formData.plotArea}
+                    />
+                    <span>area</span>
                 </div>
                 <div className={styles.bhk}>
                     <input type="number"
@@ -291,17 +299,31 @@ export const UpdateListing = () => {
                     </div>
                     <p className={styles.red}>{imageUploadError ? imageUploadError : ""}</p>
                     <div className={formData.imageUrls.length > 1 ? styles.imagesList : ""}>
-                        {formData.imageUrls && formData.imageUrls.map((url) => (
-                            <div key={url} className={styles.imageBox}>
-                                <img src={url} className={styles.images} />
-                                <button onClick={() => { handleRemoveImage }}>
-                                    <img src={cross} className={styles.cross} />
-                                </button>
-                            </div>
+                        {formData.imageUrls && formData.imageUrls.map((url,index) => (
+                            <div
+                            key={url}
+                            className={styles.imageBox}
+                          >
+                            <img
+                              src={url}
+                              alt='listing image'
+                                className={styles.images}
+                            />
+                            <button
+                            type='button'
+                            onClick={() => handleRemoveImage(index)}
+                          >
+                            <img src={cross} className={styles.cross}/>
+                          </button>
+                          </div>
                         ))}
                     </div>
                 </div>
-                <button className={styles.updateButton}>Update Listing</button>
+                <div className={styles.optionButton}>
+                    <button>update</button>
+                    <button type='button'>
+                        <a href="/profile">cancel</a></button>
+                </div>               
                 <p className={styles.red}>{error ? error : ""}</p>
             </form>
         </div>

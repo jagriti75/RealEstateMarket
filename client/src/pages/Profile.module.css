@@ -1,0 +1,278 @@
+.container{
+    display:flex;
+    position: relative;
+    gap:30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    padding:30px;
+}
+
+.container h1{
+    font-size: 21px;
+}
+
+.profileImg{
+    border-radius: 50%;
+    height:50px;
+    width:50px;
+    cursor: pointer;
+}
+
+.information{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:15px;
+
+}
+
+.info{
+    display: flex;
+    text-transform: capitalize;
+    font-size: 16px;
+    width:500px;
+    align-content: stretch;
+    gap:60px;
+    padding:10px;
+    border-radius: 50px;
+    background-color: rgb(255, 255,255 ,0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.info img{
+    height: 20px;
+    width:20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info:hover img{
+    opacity: 1;
+}
+
+.info input{
+    background-color: transparent;
+    border: 0;
+}
+
+.info input::placeholder{
+    color:grey;
+}
+
+.options{
+    background-color: #2952a3;
+    border: 0;
+    color:white;
+    border-radius: 50px;
+    width: 525px;
+    padding:15px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.options a{
+    color:white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.options:hover{
+    opacity: 0.9;
+}
+
+.edit{
+    background-color: transparent; /* Set background color to transparent */
+    border: none; 
+    cursor: pointer; 
+}
+
+.green{
+    color:green;
+    text-align: center;
+}
+
+.red{
+    color:red;
+    text-align: center;
+    font-size: 15px;
+}
+
+.modify{
+   
+    display:flex;
+    gap:350px;
+    color: red;
+    font-size: 15px;
+    cursor: pointer;
+    margin:0 25px 0 25px;
+    padding:5px;
+}
+
+.showListingbutton{
+    background: transparent;
+    color:green;
+    border:0;
+    cursor: pointer;
+    font-size: 14px;
+}
+.listing{
+    display: flex;
+    gap:40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;;
+}
+.listing button{
+    text-align: center;
+}
+.listingBox{
+    border: 1px solid grey;
+    padding:5px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap:15px;
+    border: 0;
+    border-radius: 10px;
+    height:350px;
+    width:250px;
+    background-color: 	whitesmoke;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.listingBox:hover{
+    border : 1px solid #19334d;
+}
+
+.imageBox{
+    height:150px;
+    width:150px;
+    overflow: hidden;
+}
+
+
+.listingBox img{
+    height:200px;
+    width:250px;
+    object-fit: cover;
+}
+.lists{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    flex-wrap: wrap;
+    background-color: 	white;
+    align-items: center;
+    justify-content:center;
+    width:900px;
+}
+.buttons{
+    display: flex;
+    gap:15px;
+}
+
+.buttons button{
+    background: transparent;
+    border: 0;
+}
+.lists button img{
+    height:15px;
+    width:15px;
+}
+
+.heading{
+    color:black;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.posts{
+    display:flex;
+    gap:500px;
+}
+
+.posts h1{
+    font-size: 18px;
+}
+
+.plus{
+    height:20px;
+    width:20px;
+}
+
+.add{
+    background-color:#E8E8E8;
+    padding: 5px;;
+    border:0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    color:black;;
+    text-decoration: none;
+}
+
+.listSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:30px;
+    flex-direction: column;
+}
+
+.loadImg{
+    height:20px;
+    width:20px;
+    animation: spin 1s linear infinite;;
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg); /* Start rotation at 0 degrees */
+    }
+    to {
+      transform: rotate(360deg); /* End rotation at 360 degrees */
+    }
+  }
+
+  .buttons{
+    display: flex;
+    font-size: 14px;;
+    cursor: pointer;
+  }
+
+  .buttons a{
+    text-decoration: none;
+    color:white;
+  }
+
+  .buttons button{
+    display: flex;
+    background-color:transparent;
+    color:white;
+    justify-content: center;
+    padding:10px;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .buttons img{
+    height:25px;
+    width:25px;
+  }
+

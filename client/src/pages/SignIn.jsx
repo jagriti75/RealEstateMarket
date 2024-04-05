@@ -55,7 +55,7 @@ export const SignIn = () => {
         </h1>
         <form onSubmit={handleSubmit} className={styles.signinpage}>
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
-            <input type="text" placeholder="password" id="password" onChange={handleChange} />
+            <input type="password" placeholder="password" id="password" onChange={handleChange} />
             <button disabled={loading} type="submit" className={styles.sign}>{loading ? "loading..." : "SIGN IN"}</button>
             <Oauth/>
             <div className={styles.direct}><span >Do not have an account?</span><a href="/signup">sign up</a></div>

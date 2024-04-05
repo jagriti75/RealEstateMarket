@@ -1,15 +1,14 @@
-.listContainer{
-    display: flex;
+.rentContainer{
+    display:flex;
+    flex-direction: column;
     align-items: center;
-    margin-top:30px; 
-    justify-content: center ;
+    gap:30px;
+    margin-top: 50px;
+    justify-content: center;
 }
 
-.listings{
-    display: flex;
-    flex-direction: column;
-    gap:20px;
-    overflow: hidden;
+.title{
+    font-weight: 400;
 }
 
 .box{
@@ -18,20 +17,19 @@
     flex-direction: row;
     justify-content:flex-start ;
     flex-wrap: wrap;
-    margin-left: 30px;
+    width:900px;
 }
 
 .listingBox{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height:250px;
+    height:280px;
     width:250px;
     background-color: white;
     border-radius: 10px;
     padding:10px;
     margin:10px;
-
 }
 
 .listingBox h1{
@@ -44,13 +42,15 @@
     object-fit: cover;
 }
 
-.heading {
+.heading{
     text-decoration: none;
     color:black;
     cursor:pointer;
+    font-weight: 300;
 }
 
-.rupee img{
+
+  .rupee img{
     height:10px;
     width:10px
   }
@@ -64,3 +64,5 @@
   .grey{
     color:slategrey
   }
+
+

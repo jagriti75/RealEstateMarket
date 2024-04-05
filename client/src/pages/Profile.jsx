@@ -3,13 +3,17 @@ import styles from "./Profile.module.css";
 import { getDownloadURL, getStorage, uploadBytesResumable, ref } from 'firebase/storage'
 import { app } from '../firebase';
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     updateUserStart, updateUserSuccess, updateUserFailure
     , deleteUserStart, deleteUserFailure, deleteUserSuccess, signOutUserSuccess, signOutUserStart, signOutUserFailure
 } from "../redux/user/userSlice";
+import deleteIcon from  '../assets/close.png'
 import edit from '../assets/edit.png'
 import profile from '../assets/profile.webp'
+import add from '../assets/plus.png'
+import loadIcon from '../assets/loading.png'
+
 
 export const Profile = () => {
 
@@ -22,9 +26,11 @@ export const Profile = () => {
     const [uploadPerc, setUploadPerc] = useState(0);
     const [formData, setFormData] = useState({});
     const [success, setUpdateSuccess] = useState(false);
-    const [listings , setListings]=useState([]);
-    const [listingError , setListingError]=useState(null);
+    const [listings, setListings] = useState([]);
+    const [listingError, setListingError] = useState(null);
+    const [showList, setShowList] = useState(false);
     const fileRef = useRef(null);
+    const [load, setLoad] = useState(false);
 
     const navigate = useNavigate();
 
@@ -121,58 +127,70 @@ export const Profile = () => {
     }
 
     const handleSignout = async (e) => {
-        try{
+        try {
             dispatch(signOutUserStart());
-        const res = await fetch(`/api/auth/signout`, {
-            method: 'GET',
-        });
-        navigate('/signin');
-        const data = res.json();
-        if(success == true){
+            const res = await fetch(`/api/auth/signout`, {
+                method: 'GET',
+            });
+            navigate('/signin');
+            const data = res.json();
+            if (success == true) {
+                dispatch(signOutUserSuccess(data));
+            }
             dispatch(signOutUserSuccess(data));
-        }
-        dispatch(signOutUserSuccess(data));
-    }catch(error){
-        dispatch(signOutUserFailure());
+        } catch (error) {
+            dispatch(signOutUserFailure());
             console.log(error);
         }
     }
 
-    const handleShowListings = async(e) => {
-        try{
-            const res = await fetch(`/api/user/listings/${currentUser._id}`);
-            const data = await res.json();
+    const handleShowListings = async (e) => {
+        try {
+            setShowList(!showList);
+            if (showList) {
+                setLoad(true);
+                const res = await fetch(`/api/user/listings/${currentUser._id}`);
+                const data = await res.json();
 
-            if(data.success === false){
-                setListingError(error);
-                return;
+                if (data.success === false) {
+                    setListingError(error);
+                    setLoad(false);
+                    return;
+                }
+                setLoad(false);
+                setListings(data);
             }
 
-            setListings(data);
-             
-        }catch(error){
+        } catch (error) {
             setListingError(error);
+            setLoad(false);
         }
     }
 
-    const handleRemoveListing  = async (listingId) => {
+    const handleRemoveListing = async (listingId) => {
         try {
-          const res = await fetch(`/api/listing/delete/${listingId}`, {
-            method: 'DELETE',
-          });
-          const data = await res.json();
-          if (data.success === false) {
-            console.log(data.message);
-            return;
-          }
-    
-          setListings((prev) =>
-            prev.filter((listing) => listing._id !== listingId)
-          );
+            let confirmed = confirm("Are you sure you want to delete the listing?")
+            if (confirmed) {
+                const res = await fetch(`/api/listing/delete/${listingId}`, {
+                    method: 'DELETE',
+                });
+                const data = await res.json();
+                if (data.success === false) {
+                    console.log(data.message);
+                    return;
+                }
+
+                setListings((prev) =>
+                    prev.filter((listing) => listing._id !== listingId)
+                );
+                alert("listing deleted!");
+            } else {
+                alert("action cancelled");
+            }
         } catch (error) {
-          console.log(error.message);
+            console.log(error.message);
         }
-      };
+    };
 
     return (
         <div className={styles.container}>
@@ -180,7 +198,7 @@ export const Profile = () => {
             <div >
                 <form onSubmit={handleSubmit} className={styles.information} >
                     <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/*" />
-                    <img onClick={() => fileRef.current.click()} src={profile || currentUser.avatar} />
+                    <img className={styles.profileImg} onClick={() => fileRef.current.click()} src={profile || currentUser.avatar} />
                     <p>
                         {errorUpload ? (
                             <span className={styles.red}>
@@ -215,44 +233,67 @@ export const Profile = () => {
                         </span>
                         <span><button className={styles.edit} type='button' onClick={handlePassEdit} ><img src={edit} /></button></span>
                     </div>
+                    <button disabled={loading} type="submit" className={styles.options}>
+                        {loading ? "loading..." : "update"}
+                    </button>
                     <div className={styles.modify}>
                         <span onClick={handleDeleteUser}> Delete account </span>
                         <span onClick={handleSignout}> Sign out </span>
                     </div>
-                    <button disabled={loading} type="submit" className={styles.options}>
-                        {loading ? "loading..." : "update"}
-                    </button>
-                    <button className={styles.options}>
-                        <a href ="create-listing">create tour</a>
-                    </button>
                 </form>
                 <div>
                     <p className={styles.red}>{error ? error : " "}</p>
                     <p className={styles.green}>{success ? "updated successfully!" : " "}</p>
                 </div>
-                <div className={styles.listing}>
-                    <button className={styles.showListingbutton} 
-                    onClick={handleShowListings}>
+                <div className={styles.listSection}>
+                    <button className={styles.showListingbutton}
+                        onClick={handleShowListings}>
                         show listings
                     </button>
-                    <div >
-                        {listings && listings.length>0 && (
-                            <div className={styles.lists}>
-                                {listings.map((listing)=>(
-                                    <div key={listing._id} className={styles.listingBox} >
-                                        <p>{listing.name}</p>
-                                        <img src={listing.imageUrls[0]}/>
-                                        <div>
-                                            <button onClick={()=>{handleRemoveListing(listing._id)}}>Delete</button>
-                                        </div>
-                                    </div>
-                                ))}
+                    {showList && (
+                        <div className={styles.listing}>
+                            <div className={styles.posts}>
+                                <h1>Your Posts</h1>
+                                <button className={styles.add}>
+                                    <a className={styles.create} href="create-listing">
+                                        <img className={styles.plus} src={add} />
+                                        <span>Add more</span>
+                                    </a>
+                                </button>
                             </div>
-                        )}
-                    </div>
+                            <div>
+                                {listings && listings.length > 0 && (
+                                    <div className={styles.lists}>
+                                        {listings.map((listing) => (
+                                            <div key={listing._id} className={styles.listingBox} >
+                                                <div >
+                                                    <img src={listing.imageUrls[0]} />
+                                                </div>
+                                                <Link className={styles.heading} to={`/listing/${listing._id}`}>
+                                                    <p >{listing.name}</p>
+                                                </Link>
+                                                <div className={styles.buttons}>
+                                                    <button onClick={() => { handleRemoveListing(listing._id) }}>
+                                                        <img src={deleteIcon} alt="delete"/>
+                                                    </button>
+                                                    <button>
+                                                        <a href={`/update/${listing._id}`}>
+                                                        <img src={edit} alt="edit"/>
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    <p>{load && (<img className={styles.loadImg} src={loadIcon}/>)}</p>
                     <p>{listingError ? listingError : ""}</p>
                 </div>
-                
+
             </div>
         </div>
     );
