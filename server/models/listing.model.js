@@ -6,6 +6,9 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    plotArea:{
+      type: Number,
+    },
     description: {
       type: String,
       required: true,

@@ -46,10 +46,40 @@ export const deleteListing = async (req, res, next) => {
 
             );
 
-           return res.status(200).json(updatedList);
+            res.status(200).json(updatedList);
 
         }catch(error){
             next(error);
         }
     }
+  }
+
+  export const getListing = async (req, res , next) =>{
+    try{
+        const listing =await Listing.findById(req.params.id);
+        if(!listing){
+            return next(errorHandler(404 ,"listing not found"));
+        }
+
+         res.status(200).json(listing);
+    }catch(error){
+        next(error);
+    }
+  }
+
+  export const getAllListings = async(req,res,next) =>{
+    try{
+        const allListings = await Listing.find({});
+        if (!allListings || allListings.length === 0) {
+            // Handle case where no listings are found
+            return res.status(404).json({ error: "Not found" });
+        }
+        res.status(200).json(allListings);
+        if(!allListings){
+            return next(errorHandler(404 , "not found"));
+        }
+    }catch(error){
+        next(error);
+    }
+
   }
