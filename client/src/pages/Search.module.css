@@ -1,0 +1,115 @@
+.searchContainer{
+    display: flex;
+    padding:10px;
+    padding-top: 0;
+    font-size: 14px;
+    gap:20px;
+    border:0;
+    background-color: white;
+}
+
+.searchContainer h1{
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.searchContainer form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    border:0;
+    border-right:1px solid #ccc;
+    padding:10px;
+    padding-top:30px ;
+    height: 100vh;
+    justify-content: flex-start;
+    width:250px;
+}
+
+.searchContainer form input[type='text']{
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding:5px;
+
+}
+
+.searchContainer form label{
+    font-weight: 400;
+}
+
+.searchContainer form button{
+    width:250px;
+    border:0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    background-color: black;
+    color:white;
+    border-radius: 10px;
+}
+
+.checkboxInput{
+    display: flex;
+    gap:8px;
+}
+
+.listingContainer{
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    gap:20px;
+}
+
+.listing{
+    display: flex;
+    gap:40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;;
+}
+.listing button{
+    text-align: center;
+}
+.listingBox{
+    border: 1px solid grey;
+    padding:5px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap:15px;
+    border: 0;
+    border-radius: 10px;
+    height:350px;
+    width:250px;
+    background-color: 	whitesmoke;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.listingBox:hover{
+    border : 1px solid #19334d;
+}
+
+.imageBox{
+    height:150px;
+    width:150px;
+    overflow: hidden;
+}
+
+
+.listingBox img{
+    height:200px;
+    width:250px;
+    object-fit: cover;
+}
+.lists{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    flex-wrap: wrap;
+    background-color: 	white;
+    justify-content: flex-start;
+}
+
+
