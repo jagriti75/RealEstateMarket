@@ -1,95 +1,58 @@
 .container {
-    position: sticky;
+    position: absolute;
     display: flex;
-    position: relative;
+    width:100vw;
     align-items: center;
     justify-content: center;
-    padding: 10px;
-    gap:180px;
+    padding: 6px 0 6px 0;
+    gap:700px;
+    z-index: 5;
+    background-color:white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
     text-align: center;
     overflow: visible;
     /*text-shadow: 0 1px 1px #fff;*/
 }
 
+
 .black{
-    color:black
+    color:#c68c53;
 }
 .white{
-    color:grey
-}
-
-
-.search {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    background-color: white;
-    border-radius: 10px;
-    border: solid lightgrey 1px;
-    overflow: hidden;
-    padding: 4px;
-}
-
-.search input {
-    outline: none;
-    height: 25px;
-    width: 300px;
-    border: 0;
-}
-
-.search input[type="text"]{
-    margin-left:20px;
-}
-
-.search img {
-    position: absolute;
-    right: 6px;
-    top: 8px;
-    height: 18px;
-    width: 18px;
-    cursor: pointer;
-}
-
-.search button {
-    border: 0;
-    background-color: white;
+    color:#c68c53;
 }
 
 
 .menu {
     display: flex;
     align-items: center;
+    justify-content: center;
     list-style: none;
     gap: 10px;
     color:white;
-    flex:1;
 }
 
 .menu a{
-    color:black;
+    color:#c68c53;;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 400;
 
-}
-
-.profile img{
-    position:absolute;
-    top:15px;
 }
 
 .profile {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
 }
 
 .active{
+    background-color:#f9f2ec;
     border-radius: 10px;
-    background-color:  #df9f9f;
-    padding:5px;
+    padding: 5px;;
 }

@@ -109,6 +109,7 @@ export const CreateListing = () => {
             });
         }
 
+
         if (
             e.target.type === 'number' ||
             e.target.type === 'text' ||
@@ -119,6 +120,7 @@ export const CreateListing = () => {
                 [e.target.id]: e.target.value,
             });
         }
+
     };
 
     const handleSubmit = async (e) => {
@@ -236,7 +238,7 @@ export const CreateListing = () => {
                         onChange={handleChange}
                         value={formData.plotArea}
                     />
-                    <span>area</span>
+                    <span>area(Sqft)</span>
                 </div>
                 <div className={styles.bhk}>
                     <input type="number"
@@ -245,7 +247,7 @@ export const CreateListing = () => {
                         value={formData.regularPrice}
                     />
                     <span>Regular Price</span>
-                    {formData.type== 'rent' && (<span>($/month)</span>)}
+                    {formData.type == 'rent' && (<span>(₹/month)</span>)}
                     {
                         formData.offer && (
                             <div>
@@ -255,7 +257,7 @@ export const CreateListing = () => {
                                     value={formData.discountPrice}
                                 />
                                 <span>Discounted Price</span>
-                                {formData.type== 'rent' && (<span>($/month)</span>)}
+                                {formData.type == 'rent' && (<span>(₹/month)</span>)}
                             </div>
                         )
                     }
@@ -285,7 +287,7 @@ export const CreateListing = () => {
                     </div>
                     <p className={styles.red}>{imageUploadError ? imageUploadError : ""}</p>
                     <div className={formData.imageUrls.length > 1 ? styles.imagesList : ""}>
-                        {formData.imageUrls && formData.imageUrls.map((url,index) => (
+                        {formData.imageUrls && formData.imageUrls.map((url, index) => (
                             <div key={url} className={styles.imageBox}>
                                 <img src={url} className={styles.images} />
                                 <button type='button' onClick={() => { handleRemoveImage(index) }}>
@@ -296,10 +298,10 @@ export const CreateListing = () => {
                     </div>
                 </div>
                 <div className={styles.buttons}>
-                <button className={styles.createListButton}>create</button>
-                <button type='button' className={styles.backButton}>
-                    <a href="/profile"> cancel </a>
-                </button>
+                    <button className={styles.createListButton}>create</button>
+                    <button type='button' className={styles.backButton}>
+                        <a href="/profile"> cancel </a>
+                    </button>
                 </div>
                 <p className={styles.red}>{error ? error : ""}</p>
             </form>

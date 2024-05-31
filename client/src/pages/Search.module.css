@@ -1,29 +1,130 @@
 .searchContainer{
+    position: relative;
+    top:30px;
     display: flex;
-    padding:10px;
-    padding-top: 0;
+    flex-direction: column;
     font-size: 14px;
-    gap:20px;
     border:0;
+    background-color:whitesmoke;
+    overflow: scroll;
+}
+
+.coverImage{
+    position: relative;
+    width:100%;
+    height:285px;
+    z-index:0;
+}
+
+.overlay{
+    position: absolute;
+    top:0;
+    width:100%;
+    height: 285px;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.coverImage img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.topList{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top:200px;
+    left:750px;
+    height:100px;
     background-color: white;
+    color:black;
+    border-radius: 10px;
+    box-shadow:  2px 2px 15px rgba(0, 0, 0, 0.2); 
+    padding:15px;
+    gap:5px;
+    justify-content: center;
 }
-
-.searchContainer h1{
+.name{
+    font-size: 14px;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}
+.address{
+    display: flex;
+    gap:5px;
+    color:lightslategray;
+    font-size: 10px;
     font-weight: 300;
-    font-size: 18px;
+    align-items: center;
+    justify-content:first baseline;
+  }
+
+  .address img{
+    height:10px;
+    width:10px;
+  }
+.houseInfo{
+    display: flex;
+    gap:5px;
+    font-weight: 600;
+    font-size: 10px;
+  }
+
+  .price{
+    font-size: 14px;
+    font-weight: 500;
+    color: grey;
+  }
+
+  .view{
+    display: flex;
+    align-items: flex-start;
+    background: transparent;
+    border: 0;
+  }
+
+  .view a{
+    color:green;
+    font-size: 12px;
+  }
+
+  .view a:hover{
+    text-decoration: underline;
+  }
+
+.filterBox{
+    display:flex;
 }
 
-.searchContainer form{
+.filterHeading{
+    border-left: 3px solid #d2a679 ;
+    height:20px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 600;
+    padding-top:2px;
+    margin-bottom: 10px;
+}
+
+.searchBox{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.searchContainer form{ 
+    position: -webkit-sticky;
+    position: sticky;
+    top:20px;
     display: flex;
     flex-direction: column;
     gap:20px;
-    border:0;
-    border-right:1px solid #ccc;
     padding:10px;
     padding-top:30px ;
-    height: 100vh;
     justify-content: flex-start;
     width:250px;
+    margin-left: 30px;
 }
 
 .searchContainer form input[type='text']{
@@ -31,85 +132,76 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding:5px;
+    width:236px;
 
-}
-
-.searchContainer form label{
-    font-weight: 400;
 }
 
 .searchContainer form button{
-    width:250px;
+    width:246px;
     border:0;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     padding:10px;
-    background-color: black;
+    background-color: #d2a679 ;
+    cursor: pointer;
     color:white;
-    border-radius: 10px;
+}
+
+.searchContainer form button:hover{
+    opacity:0.9;
 }
 
 .checkboxInput{
     display: flex;
-    gap:8px;
+    gap:10px;
+    font-size: 12px;
+}
+
+.sortBox select{
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+.checkboxInput input{
+    margin-right: 5px;
+}
+
+.checkboxInput span{
+    font-weight: 400;
 }
 
 .listingContainer{
     display: flex;
-    margin-top: 30px;
+    margin-top: 100px;
+    margin-left: 30px;
+    align-items: flex-start;
     flex-direction: column;
     gap:20px;
 }
-
-.listing{
-    display: flex;
-    gap:40px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;;
-}
-.listing button{
-    text-align: center;
-}
-.listingBox{
-    border: 1px solid grey;
-    padding:5px;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap:15px;
-    border: 0;
-    border-radius: 10px;
-    height:350px;
-    width:250px;
-    background-color: 	whitesmoke;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+.results{
+    font-size: 18px;
+    font-weight: 400;
 }
 
-.listingBox:hover{
-    border : 1px solid #19334d;
-}
-
-.imageBox{
-    height:150px;
-    width:150px;
-    overflow: hidden;
-}
-
-
-.listingBox img{
-    height:200px;
-    width:250px;
-    object-fit: cover;
-}
 .lists{
     display:flex;
     flex-direction: row;
     gap:10px;
     flex-wrap: wrap;
-    background-color: 	white;
     justify-content: flex-start;
 }
 
+.showMoreButton{
+    width:200px;
+    background-color: transparent;
+    border: 0;
+    color:green;
+    padding:30px;
+    padding-left: 0px;
+}
+
+.showMoreButton:hover{
+    text-decoration: underline;
+    cursor:pointer;
+}
 

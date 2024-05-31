@@ -33,9 +33,7 @@
     align-items:center;
 }
 
-.bhk input{
-    width:40px;
-}
+
 
 .imageUpload{
     display: flex;
@@ -82,9 +80,10 @@
     display: flex;
     align-items: flex-start;
     gap:30px;
-    border: 1px solid light grey;
     padding:5px;
 }
+
+
 .images{
     height: 150px;
     width:150px;
@@ -114,10 +113,7 @@
     border:1px solid grey;
 }
 
-.optionButton button{
 
-    background-color: black;
-}
 
 
 

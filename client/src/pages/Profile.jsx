@@ -8,11 +8,13 @@ import {
     updateUserStart, updateUserSuccess, updateUserFailure
     , deleteUserStart, deleteUserFailure, deleteUserSuccess, signOutUserSuccess, signOutUserStart, signOutUserFailure
 } from "../redux/user/userSlice";
-import deleteIcon from  '../assets/close.png'
 import edit from '../assets/edit.png'
 import profile from '../assets/profile.webp'
-import add from '../assets/plus.png'
 import loadIcon from '../assets/loading.png'
+import { Icon } from 'react-icons-kit';
+import { trashO } from 'react-icons-kit/fa/trashO';
+import { ic_add_circle } from 'react-icons-kit/md/ic_add_circle';
+
 
 
 export const Profile = () => {
@@ -41,6 +43,24 @@ export const Profile = () => {
             handleFileUpload(file);
         }
     }, [file]);
+
+    useEffect(() => {
+        const fetchListings = async () => {
+            setLoad(true);
+            const res = await fetch(`/api/user/listings/${currentUser._id}`);
+            const data = await res.json();
+
+            if (data.success === false) {
+                setListingError(error);
+                setLoad(false);
+                return;
+            }
+            setLoad(false);
+            setListings(data);
+        }
+        fetchListings();
+
+    }, []);
 
     const handleFileUpload = (file) => {
         const storage = getStorage(app);
@@ -144,28 +164,6 @@ export const Profile = () => {
         }
     }
 
-    const handleShowListings = async (e) => {
-        try {
-            setShowList(!showList);
-            if (showList) {
-                setLoad(true);
-                const res = await fetch(`/api/user/listings/${currentUser._id}`);
-                const data = await res.json();
-
-                if (data.success === false) {
-                    setListingError(error);
-                    setLoad(false);
-                    return;
-                }
-                setLoad(false);
-                setListings(data);
-            }
-
-        } catch (error) {
-            setListingError(error);
-            setLoad(false);
-        }
-    }
 
     const handleRemoveListing = async (listingId) => {
         try {
@@ -217,7 +215,7 @@ export const Profile = () => {
                         <span>
                             {name ? <input type="text" id='username' onChange={handleChange} /> : currentUser.username}
                         </span>
-                        <span><button className={styles.edit} type='button' onClick={handleNameEdit} ><img src={edit} /></button></span>
+                        <span><button className={styles.edit} type='button' onClick={handleEmailEdit} ><img src={edit} /></button></span>
                     </div>
                     <div className={styles.info}><
                         span>email :</span>
@@ -234,7 +232,7 @@ export const Profile = () => {
                         <span><button className={styles.edit} type='button' onClick={handlePassEdit} ><img src={edit} /></button></span>
                     </div>
                     <button disabled={loading} type="submit" className={styles.options}>
-                        {loading ? "loading..." : "update"}
+                        {loading ? "loading..." : "UPDATE"}
                     </button>
                     <div className={styles.modify}>
                         <span onClick={handleDeleteUser}> Delete account </span>
@@ -246,22 +244,19 @@ export const Profile = () => {
                     <p className={styles.green}>{success ? "updated successfully!" : " "}</p>
                 </div>
                 <div className={styles.listSection}>
-                    <button className={styles.showListingbutton}
-                        onClick={handleShowListings}>
-                        show listings
-                    </button>
-                    {showList && (
+                    {
                         <div className={styles.listing}>
                             <div className={styles.posts}>
-                                <h1>Your Posts</h1>
+                                <h1>Your Listings:</h1>
                                 <button className={styles.add}>
                                     <a className={styles.create} href="create-listing">
-                                        <img className={styles.plus} src={add} />
+                                        <Icon icon={ic_add_circle} />
                                         <span>Add more</span>
                                     </a>
                                 </button>
                             </div>
                             <div>
+                                {listings.length == 0 && (<p>No listings!</p>)}
                                 {listings && listings.length > 0 && (
                                     <div className={styles.lists}>
                                         {listings.map((listing) => (
@@ -272,14 +267,29 @@ export const Profile = () => {
                                                 <Link className={styles.heading} to={`/listing/${listing._id}`}>
                                                     <p >{listing.name}</p>
                                                 </Link>
+                                                <p className={styles.price}>
+                                                    {listing.offer
+                                                        ? listing.discountPrice.toLocaleString('en-IN', {
+                                                            style: 'currency',
+                                                            currency: 'INR'
+                                                        })
+                                                        : listing.regularPrice.toLocaleString('en-IN', {
+                                                            style: 'currency',
+                                                            currency: 'INR'
+                                                        })}
+                                                    {listing.type === 'rent' && (<span className={styles.month}>/month</span>)}
+                                                </p>
+                                                <p className={styles.desc}>
+                                                    {listing.description}
+                                                </p>
                                                 <div className={styles.buttons}>
-                                                    <button onClick={() => { handleRemoveListing(listing._id) }}>
-                                                        <img src={deleteIcon} alt="delete"/>
-                                                    </button>
                                                     <button>
                                                         <a href={`/update/${listing._id}`}>
-                                                        <img src={edit} alt="edit"/>
+                                                            EDIT
                                                         </a>
+                                                    </button>
+                                                    <button style={{ background: 'transparent', boxShadow: 'none', width: '20px' }} onClick={() => { handleRemoveListing(listing._id) }}>
+                                                        <Icon icon={trashO} />
                                                     </button>
                                                 </div>
                                             </div>
@@ -289,8 +299,8 @@ export const Profile = () => {
                                 )}
                             </div>
                         </div>
-                    )}
-                    <p>{load && (<img className={styles.loadImg} src={loadIcon}/>)}</p>
+                    }
+                    <p>{load && (<img className={styles.loadImg} src={loadIcon} />)}</p>
                     <p>{listingError ? listingError : ""}</p>
                 </div>
 

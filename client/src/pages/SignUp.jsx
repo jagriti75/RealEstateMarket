@@ -1,14 +1,29 @@
 import React, { useState } from "react";
 import styles from './SignUp.module.css';
 import { useNavigate } from "react-router-dom";
-import {Oauth} from '../Oauth'
+import { Oauth } from '../Oauth'
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff';
+import { eye } from 'react-icons-kit/feather/eye'
 
 export const SignUp = () => {
 
     const [formData, setFormData] = useState({});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [type, setType] = useState('password');
+    const [icon, setIcon] = useState(eyeOff);
     const navigate = useNavigate();
+
+    const handleToggle = () => {
+        if (type === 'password') {
+            setIcon(eye);
+            setType('text')
+        } else {
+            setIcon(eyeOff)
+            setType('password')
+        }
+    }
 
     const handleChange = (e) => {
         setFormData(
@@ -40,7 +55,7 @@ export const SignUp = () => {
             }
             setLoading(false);
             setError(null);
-            navigate("/signin");         
+            navigate("/signin");
         } catch (error) {
             setLoading(false);
             setError(error.message);
@@ -48,15 +63,25 @@ export const SignUp = () => {
 
     };
     return (<div className={styles.signuppage}>
-        <h1>
-            SIGN UP
-        </h1>
+        <div className={styles.overlay}></div>
         <form onSubmit={handleSubmit} className={styles.signupform}>
-            <input type="text" placeholder="username" id="username" onChange={handleChange} />
-            <input type="text" placeholder="email" id="email" onChange={handleChange} />
-            <input type="text" placeholder="password" id="password" onChange={handleChange} />
+            <h1>
+                SIGN UP
+            </h1>
+            <div className={styles.passInput}>
+                <input type="text" placeholder="username" id="username" onChange={handleChange} />
+            </div>
+            <div className={styles.passInput}>
+                <input type="text" placeholder="email" id="email" onChange={handleChange} />
+            </div>
+            <div className={styles.passInput}>
+                <input type={type} placeholder="password" id="password" onChange={handleChange} />
+                <span className={styles.pass} onClick={handleToggle}>
+                    <Icon className={styles.eyeIcon} icon={icon} />
+                </span>
+            </div>
             <button className={styles.signup} disabled={loading} type="submit">{loading ? "loading..." : "SIGN UP"}</button>
-            <Oauth/>
+            <Oauth />
             <div className={styles.account}><span>Have an account?</span><a href="/signin">sign in</a></div>
         </form>
     </div>);

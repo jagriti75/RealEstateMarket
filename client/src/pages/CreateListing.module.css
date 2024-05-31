@@ -4,7 +4,7 @@
     justify-content: center;
     margin-top: 10px;
     color:black;
-    background-color:whitesmoke;
+    background-color:#f9f2ec;
     padding:70px;
     width:50%;
     border-radius: 50px;
@@ -13,13 +13,22 @@
 
 .list h1{
     color:black;
-    font-size:20px;
+    border-left : 5px solid #c68c53;
+    font-size:16px;
+    padding-left:5px;
+    font-weight: 500;
 }
 
 .information{
     display: flex;
     flex-direction:column;
     gap:15px;
+}
+
+.information span{
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 12px;
 }
 
 .information input{
@@ -54,9 +63,6 @@
     align-items:center;
 }
 
-.bhk input{
-    width:40px;
-}
 
 .imageUpload{
     display: flex;
@@ -66,7 +72,8 @@
 }
 
 .imageUpload button{
-    background-color: lightgrey;
+    background-color: #ccc;
+    cursor: pointer;
     color:black;
     border:0;
     border-radius: 10px;
@@ -81,7 +88,7 @@
 
 
 .imageUpload input{
-    border: 1px solid lightgrey;
+    background-color: white;
     padding:10px;
 }
 
@@ -97,13 +104,13 @@
 
 .createListButton{
     color:white;
+    text-transform: uppercase;
     background-color: black;
     border:0;
     width:100px;
     height:35px;
-    border-radius: 25px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .createListButton:hover{
@@ -111,6 +118,14 @@
 }
 
 .red{color:red}
+
+label{
+    text-transform: uppercase;
+    padding-right: 10px;
+    font-weight: 300;
+    font-size: 12px;
+}
+
 .imageBox{
     display: flex;
     align-items: flex-start;
@@ -135,7 +150,8 @@
 .imagesList{
     display: flex;
     overflow: scroll;
-    height:250px;
+    background-color: white;
+    height:190px;
     width:600px;
     gap:10px;
 }
@@ -147,13 +163,13 @@
 
 .backButton{
     color:black;
+    text-transform: uppercase;
     background-color: white;
     border:0;
     width:100px;
     height:35px;
-    border-radius: 25px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .backButton a{

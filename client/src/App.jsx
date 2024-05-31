@@ -11,8 +11,7 @@ import {UpdateListing} from "./pages/UpdateListing";
 import { About } from "./pages/About";
 import { PrivateRoute } from "./PrivateRoute";
 import { Listing } from "./pages/Listing";
-import { RentalListing } from "./pages/RentalListing";
-import { SaleListing } from "./pages/SaleListing";
+import {Search} from "./pages/Search";
 
 function App() {
 
@@ -26,14 +25,13 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/about" element={<About />} />
           <Route path="/listing/:listingId" element={<Listing/>} />
+          <Route path="/search" element={<Search/>}/>
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-listing" element={<CreateListing />} />
             <Route path='/update/:listingId'
             element={<UpdateListing />}/>
           </Route>
-          <Route path="/rentals" element={<RentalListing/>}/>
-          <Route path="/sale" element={<SaleListing/>}/>
         </Routes>
       </div>
     </BrowserRouter>

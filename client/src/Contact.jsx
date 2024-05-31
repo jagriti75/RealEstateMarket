@@ -2,10 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styles from "./Contact.module.css"
 import { Link } from "react-router-dom";
+import cross from "./assets/close.png";
+import email from "./assets/email.png";
+import { useNavigate } from "react-router-dom";
 
-export const Contact = ({ listing }) => {
+export const Contact = ({ listing },contact) => {
+    const[error , setError] = useState(null);
     const [landlord, setLandlord] = useState(null);
     const [message, setMessage] = useState('');
+    const [cardOpen , setCardOpen] = useState(contact);
+    const navigate = useNavigate();
+
     const onChange = (e) => {
         setMessage(e.target.value);
     };
@@ -17,6 +24,11 @@ export const Contact = ({ listing }) => {
 
                 const data = await res.json();
 
+                if(data.success === false){
+                    alert("Please sign in before proceeding further!")
+                    navigate('/signin');
+                }
+
                 console.log(data);
 
                 setLandlord(data);
@@ -25,17 +37,25 @@ export const Contact = ({ listing }) => {
             fetchLandlord();
         } catch (error) {
             console.log(error);
+
         }
 
     }, [listing.userRef]);
+
+   const setCard = () =>{
+        setCardOpen(cardOpen => !cardOpen);
+   }
+
+
     return (
         <>
-            {landlord && (
+            {cardOpen ? (landlord && (
                 <div className={styles.contactCard}>
+                    <button className={styles.closeButton} onClick={setCard}>
+                        <img  src={cross}/>
+                    </button>
                     <p>
-                        Contact <span className={styles.contactName}>{landlord.username}</span>{' '}
-                        for{' '}
-                        <span className={styles.listingName}>{listing.name.toLowerCase()}</span>
+                      <span className={styles.contactName}>{landlord.username}</span>
                     </p>
                     <textarea
                         name='message'
@@ -46,16 +66,21 @@ export const Contact = ({ listing }) => {
                         placeholder='Enter your message here...'
                         className={styles.messageArea}
                     ></textarea>
-
+                
                     <Link
                         to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
                         className={styles.mailButton}
                     >
-                        Send Message
+                        SEND MESSAGE
                     </Link>
 
                 </div>
+            )) : (
+                <button className={styles.contact} onClick={setCard}>
+                    <img  src={email} style={{ height: '20px', width: '20px' }}/>
+                </button>
             )}
+            <p>{error && error}</p>
         </>
     );
 }

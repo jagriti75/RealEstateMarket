@@ -1,17 +1,31 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import styles from "./SignIn.module.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpStart , signInFailure , signInSuccess } from "../redux/user/userSlice";
+import { signUpStart, signInFailure, signInSuccess } from "../redux/user/userSlice";
 import { Oauth } from "../Oauth";
-
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff';
+import { eye } from 'react-icons-kit/feather/eye'
 
 export const SignIn = () => {
 
     const [formData, setFormData] = useState({});
-    const {error , loading} = useSelector((state) => state.user); 
+    const { error, loading } = useSelector((state) => state.user);
+    const [type, setType] = useState('password');
+    const [icon, setIcon] = useState(eyeOff);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const handleToggle = () => {
+        if (type === 'password') {
+            setIcon(eye);
+            setType('text')
+        } else {
+            setIcon(eyeOff)
+            setType('password')
+        }
+    }
 
 
     const handleChange = (e) => {
@@ -54,10 +68,18 @@ export const SignIn = () => {
             SIGN IN
         </h1>
         <form onSubmit={handleSubmit} className={styles.signinpage}>
+            <div className={styles.passInput}>
             <input type="text" placeholder="email" id="email" onChange={handleChange} />
-            <input type="password" placeholder="password" id="password" onChange={handleChange} />
+            </div>
+            <div className={styles.passInput}>
+                <input type={type} placeholder="password" id="password" onChange={handleChange}
+                 />
+                <span className={styles.pass} onClick={handleToggle}>
+                    <Icon className={styles.eyeIcon} icon={icon} />
+                </span>
+            </div>
             <button disabled={loading} type="submit" className={styles.sign}>{loading ? "loading..." : "SIGN IN"}</button>
-            <Oauth/>
+            <Oauth />
             <div className={styles.direct}><span >Do not have an account?</span><a href="/signup">sign up</a></div>
         </form>
         <div className={styles.red}>{error}</div>

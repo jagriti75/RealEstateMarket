@@ -259,7 +259,7 @@ export const UpdateListing = () => {
                         value={formData.regularPrice}
                     />
                     <span>Regular Price</span>
-                    {formData.type== 'rent' && (<span>($/month)</span>)}
+                    {formData.type== 'rent' && (<span>(₹/month)</span>)}
                     {
                         formData.offer && (
                             <div>
@@ -269,7 +269,7 @@ export const UpdateListing = () => {
                                     value={formData.discountPrice}
                                 />
                                 <span>Discounted Price</span>
-                                {formData.type== 'rent' && (<span>($/month)</span>)}
+                                {formData.type== 'rent' && (<span>(₹/month)</span>)}
                             </div>
                         )
                     }
@@ -319,11 +319,12 @@ export const UpdateListing = () => {
                         ))}
                     </div>
                 </div>
-                <div className={styles.optionButton}>
-                    <button>update</button>
-                    <button type='button'>
-                        <a href="/profile">cancel</a></button>
-                </div>               
+                <div className={styles.buttons}>
+                    <button className={styles.createListButton}>update</button>
+                    <button type='button' className={styles.backButton}>
+                        <a href="/profile"> cancel </a>
+                    </button>
+                </div>           
                 <p className={styles.red}>{error ? error : ""}</p>
             </form>
         </div>

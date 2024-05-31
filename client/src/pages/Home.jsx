@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
-import { Link } from "react-router-dom";
-import rupee from "../assets/rupee-indian.png";
+import { useNavigate } from "react-router-dom";
 import search from '../assets/search.png';
+import { ListingItem } from "../ListingItem";
+import house from "../assets/house.png";
+import label from "../assets/label.png";
+import building from "../assets/building.png";
+import { Link } from "react-router-dom";
+import more from "../assets/arrow.gif";
+import next from "../assets/next.png"
 
 
 
@@ -13,7 +19,17 @@ export const Home = () => {
     const [sale, setSale] = useState(0);
     const [saleList, setSaleList] = useState([]);
     const [rentList, setRentList] = useState([]);
+    const [offerList, setOfferList] = useState([]);
 
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [type, setType] = useState("rent");
+    const [sort, setSort] = useState("createdAt");
+    const [order, setOrder] = useState("asc")
+
+
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -55,13 +71,21 @@ export const Home = () => {
                 }
             })
 
+            data.forEach((element) => {
+                if (element.offer == true) {
+                    offerList.push(element);
+                }
+            })
+
             const saleListIntro = saleList.slice(0, 3);
             const rentListIntro = rentList.slice(0, 3);
+            const offerListIntro = offerList.slice(0, 3);
 
             setSale(sale);
             setRental(rental);
             setSaleList(saleListIntro);
             setRentList(rentListIntro);
+            setOfferList(offerListIntro);
             setListings(data);
 
         }
@@ -70,93 +94,173 @@ export const Home = () => {
 
     }, []);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set(`searchTerm`, searchTerm);
+        urlParams.set('type', type);
+        urlParams.set('sort', sort);
+        urlParams.set('order', order);
+        const searchQuery = urlParams.toString();
+
+        navigate(`/search?${searchQuery}`)
+
+    }
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const searchTermFromUrl = urlParams.get(searchTerm);
+        if (searchTermFromUrl) {
+            setSearchTerm(searchTermFromUrl);
+        }
+    }, [])
+
+    const handleChange = (e) => {
+        if (e.target.id === 'rent&sale') {
+            console.log("entered target")
+            if (e.target.value === 'rent') {
+                console.log("rent");
+                setType("rent")
+            }
+
+            if (e.target.value === 'buy') {
+
+                console.log("sell");
+                setType("sale")
+            }
+        }
+        if (e.target.id === 'sort_order') {
+            const sort = e.target.value.split('_')[0] || 'createdAt';
+            const order = e.target.value.split('_')[1] || 'asc';
+
+            setSort(sort);
+            setOrder(order);
+        }
+    }
+
     return (
-        <div className={styles.listContainer}>
-            <div className={styles.intro}>
-                welcome! let's begin your search for perfect home
+        <div className={styles.homeContainer}>
+            <div className={styles.cover}>
+                <div className={styles.search}>
+                    <form onSubmit={handleSubmit}>
+                        <input type="text"
+                            placeholder="Search ..."
+                            value={searchTerm}
+                            onChange={(e) => { setSearchTerm(e.target.value) }}
+                        />
+                        <select
+                            onChange={handleChange}
+                            id="rent&sale">
+                            <option value="rent"
+                            >Rent</option>
+                            <option value="buy"
+                            >Buy</option>
+                        </select>
+                        <select
+                            onChange={handleChange}
+                            defaultValue={'created_at_desc'}
+                            id='sort_order'
+                        >
+                            <option value='createdAt_asc'>Latest</option>
+                            <option value='createdAt_desc'>Oldest</option>
+                            <option value='regularPrice_desc'>Price high to low</option>
+                            <option value='regularPrice_asc'>Price low to high</option>
+                        </select>
+                        <button className={styles.searchButton}><img src={search} alt="?" /></button>
+                    </form>
+                </div>
+                <div className={styles.overlay}></div>
+                <div className={styles.signup}>
+                    <Link to="/signup">
+                        sign up for free
+                    </Link>
+                </div>
+                <div className={styles.contactAgent}>
+                    <h1>Contact Agent</h1>
+                    <p>Call : (+91)000 0000</p>
+                    <p>Email : agent123@gmail.com</p>
+                    <p>Visit : 1234 , near community hall</p>
+                </div>
+                <div></div>
+                <div className={styles.caption}>
+                    <p>No place</p>
+                    <p>like MarketPlace</p>
+                </div>
+                <button className={styles.browseListing}>
+                    <a href="#rentals">
+                        Browse Listings
+                    </a>
+                </button>
+                <div className={styles.intro}>
+                    <div className={styles.introMenu}>
+                        <img className={styles.introImage} src={house} />
+                        <h1>Homes for sale</h1>
+                        <p>Explore exclusive house with great deals.</p>
+                        <button><Link to="/search?searchTerm=&type=sale&parking=false&furnished=false&offer=false&sort=created_at&order=desc"
+                        ><img className={styles.viewMore} src={more} />
+                        </Link></button>
+                    </div>
+                    <div className={styles.introMenu}>
+                        <img className={styles.introImage} src={building} />
+                        <h1>Commercial Properties</h1>
+                        <p>Wide range of options available.</p>
+                        <button><Link to="/search?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc
+                        "><img className={styles.viewMore} src={more} />
+                        </Link></button>
+                    </div>
+                    <div className={styles.introMenu}>
+                        <img className={styles.introImage} src={label} />
+                        <h1>List your property</h1>
+                        <p>List your property to get customers.</p>
+                        <button><Link to="/profile">
+                            <img className={styles.viewMore} src={more} />
+                        </Link></button>
+                    </div>
+                </div>
             </div>
-            <div className={styles.search}>
-                <input type="text" placeholder="Search ..." />
-                <label for="dropdown">Type:</label>
-                <select name="dropdown" id="dropdown">
-                    <option value="rent">rent</option>
-                    <option value="sale">buy</option>
-                    <option value="sell">sell</option>
-                </select>
-                <label for="dropdown">Budget:</label>
-                <select name="dropdown" id="dropdown">
-                    <option value="50">under 50k</option>
-                    <option value="100">under 1lakh</option>
-                    <option value="200">under 10lakh</option>
-                </select>
-                <button type="button"><img src={search} alt="?" /></button>
-            </div>
-            
             {listings && (<div className={styles.listings} >
-                <p className={styles.RentalSection}>Explore our best options on rentals</p>
+                <p id="rentals" className={styles.section}>Explore our best options on rentals</p>
                 <div className={styles.box}>
                     {(rentList.map((listing) => (
-                        <div key={listing._id}>
-                            {(
-                                <div className={styles.listingBox}>
-                                    <img src={listing.imageUrls[0]} />
-                                    <Link className={styles.heading} to={`/listing/${listing._id}`}>
-                                        <p >{listing.name}</p>
-                                    </Link>
-                                    <span>{listing.offer ?
-                                        (<div>
-                                            <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span className={styles.cut}>{listing.regularPrice}</span>
-                                            <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span>{listing.discountPrice}</span>
-                                            <span className={styles.grey}> /month</span>
-                                        </div>)
-                                        : (<div> <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span>
-                                                {listing.regularPrice}
-                                            </span>
-                                            <span>{listing.offer == false && <span className={styles.grey}> /month</span>}</span>
-                                        </div>)
-                                    }
-                                    </span>
-                                </div>
-                            )}
-
-                        </div>
+                        <ListingItem key={listing._id} listing={listing} />
                     ))
                     )}
-                    <p><a className={styles.more} href="/rentals">{((rental - 3) > 0) ? `+ ${rental - 3} more` : ""}</a></p>
+                    <p><a className={styles.more} href="
+                    /search?searchTerm=&type=rent&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
+                        {(rental > 3) ?
+                            (<img className={styles.next} src={next} />)
+                            : ""}</a>
+                    </p>
                 </div>
-                <p className={styles.RentalSection}>Buy your dream house</p>
+                <p id="sale" className={styles.section}>Buy your dream house</p>
                 <div className={styles.box}>
                     {(saleList.map((listing) => (
-                        <div key={listing._id}>
-                            {(
-                                <div className={styles.listingBox}>
-                                    <img src={listing.imageUrls[0]} />
-                                    <Link className={styles.heading} to={`/listing/${listing._id}`}>
-                                        <p >{listing.name}</p>
-                                    </Link>
-                                    <span>{listing.offer ?
-                                        (<div>
-                                            <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span className={styles.cut}>{listing.regularPrice}</span>
-                                            <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span>{listing.discountPrice}</span>
-                                        </div>)
-                                        : (<div> <span className={styles.rupee}><img src={rupee} /></span>
-                                            <span>
-                                                {listing.regularPrice}
-                                            </span>
-                                        </div>)
-                                    }
-                                    </span>
-                                </div>
-                            )}
-                        </div>
+                        <ListingItem key={listing._id} listing={listing} />
                     ))
                     )}
-                    <p><a>{((sale - 3) > 0) ? `+ ${sale - 3} more` : ""}</a></p>
+                    <p>
+                        <a href="/search?searchTerm=&type=sale&parking=false&furnished=false&offer=false&sort=created_at&order=desc">
+                            {(sale  > 3) ?
+                                (<img className={styles.next} src={next} />)
+                                : ""}
+                        </a>
+                    </p>
+                </div>
+                <p className={styles.section}>Get on offers</p>
+                <div className={styles.box}>
+                    {(offerList.map((listing) => (
+                        <ListingItem key={listing._id} listing={listing} />
+                    ))
+                    )}
+                    <p>
+                        <a href="/search?searchTerm=&type=all&parking=false&furnished=false&offer=true&sort=created_at&order=desc">
+                            {(offerList > 3) ?
+                            (<img className={styles.next} src={next} />)
+                            : ""
+                            }
+                        </a>
+                    </p>
                 </div>
             </div>)}
         </div>

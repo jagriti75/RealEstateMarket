@@ -3,8 +3,9 @@
     margin: 0;
 }
 
+
+
 #root {
-    background-color: whitesmoke;
     height: 100vh;
     position: absolute;
     top: 0;
@@ -14,4 +15,6 @@
     font-family: "Poppins", sans-serif;
     font-weight: 200;
     font-style: normal;
+    --scroll:0;
+    
 }

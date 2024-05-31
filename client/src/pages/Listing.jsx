@@ -3,14 +3,17 @@ import styles from "./Listing.module.css";
 import { useParams } from "react-router-dom";
 import loadingimg from "../assets/loading.png";
 import ImageSlider from "../ImageSlider";
-
-import furnished from "../assets/sofa.png";
-import unfurnished from "../assets/unfurnished.png";
-import parking from "../assets/parking.png";
-import noparking from "../assets/no-parking.png";
-import rupee from "../assets/rupee-indian.png";
+import email from "../assets/email.png";
 import { useSelector } from "react-redux";
 import { Contact } from "../Contact";
+import point from "../assets/placeholder.png";
+import { Icon } from 'react-icons-kit';
+import { bathtub } from 'react-icons-kit/fa/bathtub';
+import { bed } from 'react-icons-kit/fa/bed';
+import {car} from 'react-icons-kit/fa/car';
+import {ic_taxi_alert} from 'react-icons-kit/md/ic_taxi_alert';
+import {ic_no_luggage} from 'react-icons-kit/md/ic_no_luggage';
+import {ic_countertops} from 'react-icons-kit/md/ic_countertops'
 
 
 export const Listing = () => {
@@ -22,7 +25,7 @@ export const Listing = () => {
     const [imageArray, setImageArray] = useState([]);
     const [discPerc, setDiscPerc] = useState(0);
     const { currentUser } = useSelector((state) => state.user);
-    const [contact , setContact] = useState(false);
+    const [contact, setContact] = useState(false);
 
     useEffect(() => {
         try {
@@ -52,10 +55,12 @@ export const Listing = () => {
             setLoading(false);
         }
     }, [params.listingId]);
-    console.log(listing.imageUrls)
+
+
+
     return (
         <div className={styles.listing}>
-            <div>
+            <div className={styles.content}>
                 {loading && (<img className={styles.loadingimg} src={loadingimg} alt="?" />)}
                 {error && (<p>Something went wrong!</p>)}
                 {listing && !error && !loading && (
@@ -63,78 +68,95 @@ export const Listing = () => {
                         <div>
                             <ImageSlider images={imageArray} />
                         </div>
-                        <div className={styles.information}>
-                            <h1>{listing.name}</h1>
-                            <p className={styles.address}>{listing.address}</p>
-
-                            <p>{listing.type == `rent` ? "For rent :" : "For sale :"}</p>
-                            <span>{listing.offer ?
-                                (<div>
-                                    <span className={styles.rupee}><img src={rupee} /></span>
-                                    <span className={styles.cut}>{listing.regularPrice}</span>
-                                    <span className={styles.rupee}><img src={rupee} /></span>
-                                    <span>{listing.discountPrice}</span>
-                                    <span className={styles.vertical_line}></span>
-                                    <span className={styles.area}>
-                                        {listing.plotArea && (listing.plotArea + "sqft") } </span>
-                                    <span>{listing.type == "rent" && <span className={styles.grey}>per month</span>}</span>
-                                </div>)
-                                : (<div> <span className={styles.rupee}><img src={rupee} /></span>
-                                    <span>
-                                        {listing.regularPrice}
-                                    </span>
-                                    <span>{listing.type == "rent" && listing.offer == false && <span className={styles.grey}>per month</span>}</span>
-                                </div>)
-                            }
-                            </span>
-
-                            {listing.offer && (<span className={styles.green}>({discPerc + "% OFF"})</span>)}
-
-                            <p className={styles.desc}>{listing.description}</p>
-                            <div className={styles.bathsandrooms}>
-                                <span>
-                            
-                                    Bedrooms : <span>{listing.bedrooms}</span></span>
-                                <span>
-                               
-                                    Bathrooms :  <span>{listing.bathrooms}</span></span>
-                            </div>
-                            <div className={styles.available}>
-                                {listing.furnished ? (
-                                    <div className={styles.details}>
-                                        <img src={furnished} title='furnished' />
-                                        <span className={styles.green}>furnished</span>
-                                    </div>
-                                ) : (
-                                    <div className={styles.details}>
-                                    <img src={unfurnished} title='unfurnished' />
-                                    <span className={styles.red}>unfurnished</span>
-                                </div>
-                                )}
-                                {listing.parking ? (
-                                    <div className={styles.details}>
-                                        <img src={parking} title='parking available' />
-                                        <span className={styles.green}>parking available</span>
-                                    </div>
-                                ) :
-                                    (<div className={styles.details} >
-                                        <img src={noparking} title='parking not available' />
-                                        <span className={styles.red}>parking not available</span>
-                                    </div>
-                                    )
-                                }
-                            </div>
-                            <div>
-                                {currentUser && currentUser._id !== listing.userRef &&
-                                !contact &&
-                                    (<button onClick={()=>setContact(true)} className={styles.contact}>Contact Owner</button>)}
-                                {contact && <Contact listing={listing}/>}
-                            </div>
-                        </div>
-
                     </div>
                 )}
+                <div>
 
+                    {listing && (<div className={styles.desc}>
+                        <div className={styles.information}>
+                            <div>
+                                <div className={styles.infoBox}>
+                                    <div className={styles.titleBox}>
+                                        <p className={styles.name}>{listing.name}</p>
+                                        <div className={styles.addressBox}>
+                                            <p className={styles.address}>
+                                                <span><img src={point} />
+                                                </span><span>{listing.address}</span>
+                                            </p>
+                                        </div>
+                                        <p className={styles.price}>
+                                            {(listing.offer ? listing.discountPrice : listing.regularPrice)?.toLocaleString('en-IN', {
+                                                style: 'currency',
+                                                currency: 'INR'
+                                            })}
+                                            {listing.type === 'rent' && (<span
+                                                style={{ fontSize: '10px', color: '#B0B0B0' }}
+                                            >/month
+                                            </span>)}
+                                        </p>
+                                        <p className={styles.cutPrice}>
+                                            {listing.offer && listing.regularPrice?.toLocaleString('en-IN', {
+                                                style: 'currency',
+                                                currency: 'INR'
+                                            })}
+                                        </p>
+                                        <p className={styles.discount}>
+                                            {(listing.offer && `${discPerc} % off`)}
+                                        </p>
+
+                                        <div>
+                                            {currentUser && currentUser._id !== listing.userRef || currentUser == null &&
+                                                !contact &&
+
+                                                (<button onClick={() => setContact(true)} className={styles.contact}>
+                                                    <img src={email} style={{ height: '20px', width: '20px' }} />
+                                                </button>)}
+                                            {contact && <Contact listing={listing} />}
+                                        </div>
+                                    </div>
+                                    <div className={styles.houseInfo}>
+                                        <div className={styles.room}>
+                                            <Icon icon={bed} />
+                                            {listing.bedrooms > 1
+                                                ? `${listing.bedrooms} beds `
+                                                : `${listing.bedrooms} bed `}
+                                        </div>
+                                        <div className={styles.room}>
+                                            <Icon icon={bathtub} />
+                                            {listing.bathrooms > 1
+                                                ? `${listing.bathrooms} baths `
+                                                : `${listing.bathrooms} bath `}
+                                        </div>
+                                    </div>
+                                    <div className={styles.houseInfo}>
+                                        {listing.furnished ? (
+                                            <div className={styles.room}>
+                                               <Icon icon={ic_countertops}/>
+                                                <p>furnished</p>
+                                            </div>) : (
+                                            <div className={styles.room}>
+                                                <Icon icon = {ic_no_luggage}/>
+                                                <p>unfurnished</p>
+                                            </div>
+                                        )}
+                                        {listing.parking ? (
+                                            <div className={styles.room}>
+                                                <Icon icon={car}/>
+                                                parking
+                                            </div>) : (
+                                            <div className={styles.room}>
+                                                <Icon icon={ic_taxi_alert}/>
+                                                no parking
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 style={{ fontSize: '16px' }}>Description:</h1>
+                        <p style={{ fontSize: '16px' }}>{listing.description}</p>
+                    </div>)}
+                </div>
             </div>
         </div>
     )
