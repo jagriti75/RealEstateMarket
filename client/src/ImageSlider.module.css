@@ -1,49 +1,10 @@
-.imageSlider {
+.imageContainer{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap:20px;
-    width: 1000px; /* Set container width */
-    height: 400px; /* Set container height */
-    border: 1px solid #ccc;
-    overflow: hidden; 
-    padding:10px;
-    margin-top:0;
-}
-
-.imageSlider:hover{
-
-    .leftarrow , .rightarrow{
-        opacity: 1;
-    }
-
-}
-
-.images {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    
-}
-
-
-.leftarrow img {
-    height: 20px;
-    width: 20px;
-    transform: rotate(180deg);
-    filter:invert(50%);
-}
-
-.rightarrow img {
-    height: 20px;
-    width: 20px;
-    filter:invert(50%);
-}
-
-.leftarrow , .rightarrow{
-    background: transparent;
-    border: 0;
-    opacity:0;
-    cursor: pointer;
+    flex-direction: column;
+    height:400px;
+    width:100%;
+    overflow: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
 }
 

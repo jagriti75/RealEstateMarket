@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
 import styles from "./ImageSlider.module.css";
-import arrow from "../src/assets/right-arrow.png";
+
+
 
 const ImageSlider = ({ images }) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const nextImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    const prevImage = () => {
-        setCurrentImageIndex((prevIndex) =>
-            prevIndex === 0 ? images.length - 1 : prevIndex - 1
-        );
-    };
-
+    const imagesLength = images.length;
     return (
-        <div className={styles.imageSlider}>
-            <button className={styles.leftarrow} onClick={prevImage}>
-                <img src={arrow} />
-            </button>
-            <img className={styles.images} src={images[currentImageIndex]} alt={`Slide ${currentImageIndex}`} />
-            <button className={styles.rightarrow} onClick={nextImage}>
-                 <img src={arrow} />
-            </button>
+        <div>
+            <div className={styles.imageContainer} style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {images.map((image, index) => (
+                    <div key={index} style={{ margin: '10px', border: '1px solid #ccc' }}>
+                      <a href={image}><img src={image} title={`Image ${index+1}/${imagesLength}`} alt={`image ${index}`} style={{height:'400px' ,width:'900px'
+                    ,scrollSnapAlign:'start'}}  /></a>
+                    </div>
+                ))}
+            </div>
         </div>
-    );
+    )
 };
 
 export default ImageSlider;
