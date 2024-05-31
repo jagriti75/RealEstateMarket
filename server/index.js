@@ -11,7 +11,7 @@ import { env } from 'process';
 dotenv.config();
 
 const app = express();
-mongoose.connect(env.MONGO)
+mongoose.connect(process.env.MONGO)
 .then(console.log("connected to Db"))
 .catch((err)=>{
     console.log(err);
