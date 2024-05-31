@@ -87,7 +87,7 @@ export const deleteListing = async (req, res, next) => {
  export const getListings = async(req ,res , next) =>{
     try{
 
-        const limit = parseInt(req.query.limit) || 9;
+        const limit = parseInt(req.query.limit) || 4;
         const startIndex =  parseInt(req.query.startIndex) ||0;
         let offer = req.query.offer;
 
@@ -115,9 +115,11 @@ export const deleteListing = async (req, res, next) => {
 
        const searchTerm = req.query.searchTerm || ``;
 
-       const sort = req.query.sort || `createdAt`;
+       const field = req.query.sort || 'createdAt'
 
-       const order = req.query.order || `desc`;
+       const order = req.query.order || 'desc'
+
+       const mySort = {field : order};
 
        const listings = await Listing.find({
         name : {$regex : searchTerm , $options: `i`},
@@ -125,9 +127,7 @@ export const deleteListing = async (req, res, next) => {
             furnished,
             parking,
             type,
-       }).sort(
-        {[sort] : order}
-       ).limit(limit).skip(startIndex);
+       }).sort(mySort).limit(limit).skip(startIndex);
 
        return res.status(200).json(listings);
 
