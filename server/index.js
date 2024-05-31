@@ -6,11 +6,12 @@ import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import path from 'path';
+import { env } from 'process';
 
 dotenv.config();
 
 const app = express();
-mongoose.connect("mongodb+srv://jagriti:jagriti@mern-estate.uu6f755.mongodb.net/?retryWrites=true&w=majority&appName=mern-estate")
+mongoose.connect(env.MONGO)
 .then(console.log("connected to Db"))
 .catch((err)=>{
     console.log(err);
