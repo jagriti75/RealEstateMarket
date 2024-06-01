@@ -99,17 +99,18 @@
     }
 }
 
-.agree{
-    position: absolute;
-    height:20px;
-    width:20px;
-    bottom:407px;
-    left:130px;
-    filter:opacity(60%) invert;
-    -webkit-animation-name: slideInRight;
-    animation-name: slideInRight;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+
+@media (max-width: 768px){
+    .aboutContainer{
+        width:380px;
+        padding:70px 10px;
+    }
+
+    .overlay{
+        height: 900px;
+    }
+
+    .aboutSection{
+        width:360px;
+    }
 }

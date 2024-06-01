@@ -205,3 +205,27 @@
     cursor:pointer;
 }
 
+@media (max-width: 768px){
+    .topList{
+        position: absolute;
+        left:0;
+    }
+
+    .coverImage{
+        width:100vw;
+    }
+
+    .overlay{
+        width: 100vw;
+    }
+
+    .searchContainer form{
+        position: absolute;
+        top:350px;
+    }
+
+    .listingContainer{
+        margin-top:400px;
+    }
+}
+

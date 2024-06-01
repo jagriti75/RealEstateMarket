@@ -285,3 +285,66 @@ option:focus {
 .next:hover {
     transform: scale(1.1);
 }
+
+@media (max-width: 768px) {
+
+    .homeContainer{
+        font-size: 12px;
+    }
+
+    .search{
+        display: inline-block;
+    }
+
+    .cover{
+        position: relative;
+        display: flex;
+        font-size: 12px;
+    }
+
+   
+    .contactAgent{
+        display: absolute;
+        left:50px;
+        top:300px;
+    }
+
+    .intro{
+        display:none;
+    }
+
+    .caption{
+        font-size: 36px;
+        position: absolute;
+        left:50px;
+    }
+
+    .browseListing{
+        display: absolute;
+        left:50px;
+    }
+
+    .listings{
+        margin-top: 10px;;
+    }
+
+    .search {
+        position: absolute;
+        top: 60px;
+        left: 30px;
+    }
+    
+    .search form {
+        width: 350px;   
+    }
+    
+    .search input {
+        width: 100px;   
+    }
+
+    .signup {
+        position: absolute;
+        top: 420px;
+        left: 70px;
+    }
+   } 

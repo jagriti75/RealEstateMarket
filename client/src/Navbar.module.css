@@ -56,3 +56,12 @@
     border-radius: 10px;
     padding: 5px;;
 }
+
+@media (max-width: 768px){
+    .container{
+        width:97.5vw;
+        gap:0px;
+        justify-content: space-between;
+        padding: 5px;
+    }
+}

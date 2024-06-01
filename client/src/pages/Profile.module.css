@@ -294,3 +294,36 @@
     font-size: 8px;
     color:grey;
   }
+
+  @media (max-width: 768px){
+    .info{
+        width:350px;
+        font-size: 12px;
+        padding:5px;
+    }
+
+    .options{
+        width:350px;
+        padding:5px;
+        font-size: 12px;
+    }
+
+    .modify{
+        gap:150px;
+        font-size: 12px;
+    }
+
+    .listSection{
+        width:400px;
+    }
+
+    .posts{
+        justify-content: flex-start;
+        gap:150px;
+    }
+
+    .listing{
+        width:400px;
+        margin-left: 20px;
+    }
+  }

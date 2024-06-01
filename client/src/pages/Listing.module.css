@@ -171,6 +171,20 @@
     font-weight: 300;
   }
   
+  @media (max-width: 768px) {
+    .infoBox{
+      margin-top: 0px;
+      width:300px;
+    }
+
+    .desc{
+      width:300px;
+    }
+
+    .listingBox{
+      display: none;
+    }
+  }
 
 
 

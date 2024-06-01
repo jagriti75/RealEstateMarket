@@ -96,3 +96,15 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);  
     background-color: white;
 }
+
+@media (max-width: 768px){
+    .signuppage{
+     padding-top: 250px;
+    }
+
+    .overlay{
+        padding:250px;
+    }
+
+   
+ }
